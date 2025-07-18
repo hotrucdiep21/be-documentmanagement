@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.egg
+*.log
+
+# Environments
+.env
+env/
+venv/
+ENV/
+env-doc/
+*.sqlite3
+
+# VSCode / PyCharm
+.vscode/
+.idea/
+
+# Migrations (optional: only if you generate them per-environment)
+**/migrations/__pycache__/
+**/migrations/*.pyc
+# Uncomment below to ignore migration files entirely (not always recommended)
+# **/migrations/*.py
+
+# Django static/media
+staticfiles/
+media/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Compiled files
+*.db
+*.pot
+*.mo
+
+# pytest cache
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# MyPy / Pyre / Pylint
+.mypy_cache/
+.pyre/
+.pytype/
+pylint-report.txt
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Other IDEs
+*.sublime-project
+*.sublime-workspace
+
+# Docker (if used)
+*.pid
