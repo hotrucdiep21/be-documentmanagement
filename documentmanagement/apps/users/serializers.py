@@ -38,3 +38,18 @@ class RegisterSerializer(serializers.Serializer):
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("Email already exists.")
         return value
+    
+class UserUpdateSerializer(serializers.Serializer):
+    email=serializers.EmailField(required=False)
+    full_name=serializers.CharField(max_length=255, required=False)
+
+    def validate_email(self, value):
+        user=self.context['request'].user
+        if User.objects.exclude(pk=user.pk).filter(email=value).exists():
+            raise serializers.ValidationError("Email already exists.")
+        return value
+    
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=['user_id', 'email', 'full_name']
