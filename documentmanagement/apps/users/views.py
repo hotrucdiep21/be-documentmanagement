@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from apps.users.serializers import LoginSerializer, RegisterSerializer, UserUpdateSerializer, UserProfileSerializer
-from apps.users.services import login_user_service, register_user_service, refresh_token_service, update_user_service, get_user_profile_service
+from apps.users.serializers import LoginSerializer, RegisterSerializer, UserUpdateSerializer, UserProfileSerializer, UploadAvatarSerializer
+from apps.users.services import login_user_service, register_user_service, refresh_token_service, update_user_service, get_user_profile_service,upload_avatar_service
 from core.mixins import ResponseMixi
 
 
@@ -47,11 +47,23 @@ class UserUpdateAPIView(APIView, ResponseMixi):
         return Response(self.format_response({
             result, "Update user info successfully", status.HTTP_200_OK
         }))
-    
+
+
 class GetProfileAPIView(APIView, ResponseMixi):
-    permission_classes=[IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user = get_user_profile_service(request.user)
-        serializer=UserProfileSerializer(user)
+        serializer = UserProfileSerializer(user)
         return Response(self.format_response(serializer.data, "Get profile successfully"))
+
+
+class UploadAvatarAPIView(APIView, ResponseMixi):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        serializer = UploadAvatarSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        result=upload_avatar_service(user, serializer.validated_data)
+        return Response(self.format_response(result, "Avatar uploaded successfully"))
