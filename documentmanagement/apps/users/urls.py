@@ -9,4 +9,5 @@ urlpatterns = [
     path('me/', UserUpdateAPIView.as_view(), name='update_info'),
     path('profile/', GetProfileAPIView.as_view(), name='get_user_profile'),
     path('upload-avatar/', UploadAvatarAPIView.as_view(), name='upload-avatar'),
+    # path('profile/' UserUpdateAPIView.as_view())
 ]

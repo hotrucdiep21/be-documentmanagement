@@ -32,7 +32,12 @@ def register_user_service(data):
 def refresh_token_service(data):
     return data
 
+
 def update_user_service(user, data):
+    avatar_file = data.pop("avatar", None)
+    if avatar_file:
+        avatar_url = upload_to_supabase(avatar_file, folder="avatars")
+        data["avatar"] = avatar_url
     updated_user = update_user_repo(user, data)
     return UserProfileSerializer(updated_user).data
 

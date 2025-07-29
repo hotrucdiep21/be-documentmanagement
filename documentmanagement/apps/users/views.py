@@ -44,9 +44,9 @@ class UserUpdateAPIView(APIView, ResponseMixi):
             data=request.data, partial=True, context={'request': request})
         serializer.is_valid(raise_exception=True)
         result = update_user_service(user, serializer.validated_data)
-        return Response(self.format_response({
+        return Response(self.format_response(
             result, "Update user info successfully", status.HTTP_200_OK
-        }))
+        ))
 
 
 class GetProfileAPIView(APIView, ResponseMixi):
@@ -67,3 +67,5 @@ class UploadAvatarAPIView(APIView, ResponseMixi):
         serializer.is_valid(raise_exception=True)
         result=upload_avatar_service(user, serializer.validated_data)
         return Response(self.format_response(result, "Avatar uploaded successfully"))
+    
+

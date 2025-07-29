@@ -36,6 +36,8 @@ class RegisterSerializer(serializers.Serializer):
 class UserUpdateSerializer(serializers.Serializer):
     email = serializers.EmailField(required=False)
     full_name = serializers.CharField(max_length=255, required=False)
+    avatar=serializers.ImageField(required=False)
+    phone_number=serializers.CharField(max_length=11, required=False)
 
     def validate_email(self, value):
         user = self.context['request'].user

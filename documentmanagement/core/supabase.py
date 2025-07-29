@@ -1,6 +1,7 @@
 from supabase import create_client
 import os
 from dotenv import load_dotenv
+import uuid
 
 load_dotenv()
 
@@ -16,14 +17,14 @@ class SupabaseUploadError(Exception):
 
 
 def upload_to_supabase(file, folder):
-    path = f"{folder}/{file.name}"
+    file_ext = file.name.split('.')[-1]
+    filename = f"{uuid.uuid4()}.{file_ext}"
+    path = f"{folder}/{filename}"
 
     print("file", file)
-
-    file_content = file.read()
-    file.seek(0)
-
     try:
+        file_content = file.read()
+        file.seek(0)
         response = supabase.storage.from_(SUPABASE_BUCKET).upload(
             path=path,
             file=file_content,
@@ -36,6 +37,6 @@ def upload_to_supabase(file, folder):
 
     public_url_data = supabase.storage.from_(
         SUPABASE_BUCKET).get_public_url(path)
-    
+
     print("public_url_data---------", public_url_data)
     return public_url_data
