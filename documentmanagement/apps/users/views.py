@@ -40,6 +40,7 @@ class UserUpdateAPIView(APIView, ResponseMixi):
 
     def patch(self, request):
         user = request.user
+        print("request.user", request.user)
         serializer = UserUpdateSerializer(
             data=request.data, partial=True, context={'request': request})
         serializer.is_valid(raise_exception=True)

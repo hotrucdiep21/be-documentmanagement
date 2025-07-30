@@ -34,11 +34,19 @@ def refresh_token_service(data):
 
 
 def update_user_service(user, data):
-    avatar_file = data.pop("avatar", None)
+    avatar_file=data.pop("avatar", None)
+    print("user-----------", user)
+    previous_avatar=user.avatar
+    print("previous_avatar---------", previous_avatar)
+
     if avatar_file:
-        avatar_url = upload_to_supabase(avatar_file, folder="avatars")
-        data["avatar"] = avatar_url
-    updated_user = update_user_repo(user, data)
+        new_avatar_url=upload_to_supabase(
+            file=avatar_file,
+            folder="avatars",
+            previous_url=user.avatar
+        )
+        data['avatar']=new_avatar_url
+    updated_user=update_user_repo(user, data)
     return UserProfileSerializer(updated_user).data
 
 
@@ -47,7 +55,8 @@ def get_user_profile_service(user):
 
 
 def upload_avatar_service(user, data):
-    avatar_file = data['avatar']
-    avatar_url = upload_to_supabase(avatar_file, folder='avatars')
-    updated_user = update_user_avatar_repo(user, avatar_url)
-    return UserProfileSerializer(updated_user).data
+    pass
+    # avatar_file = data['avatar']
+    # avatar_url = upload_to_supabase(avatar_file, folder='avatars')
+    # updated_user = update_user_avatar_repo(user, avatar_url)
+    # return UserProfileSerializer(updated_user).data
