@@ -52,11 +52,3 @@ def update_user_service(user, data):
 
 def get_user_profile_service(user):
     return user
-
-
-def upload_avatar_service(user, data):
-    pass
-    # avatar_file = data['avatar']
-    # avatar_url = upload_to_supabase(avatar_file, folder='avatars')
-    # updated_user = update_user_avatar_repo(user, avatar_url)
-    # return UserProfileSerializer(updated_user).data

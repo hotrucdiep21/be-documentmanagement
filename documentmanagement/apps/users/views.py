@@ -58,15 +58,3 @@ class GetProfileAPIView(APIView, ResponseMixi):
         serializer = UserProfileSerializer(user)
         return Response(self.format_response(serializer.data, "Get profile successfully"))
 
-
-class UploadAvatarAPIView(APIView, ResponseMixi):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        user = request.user
-        serializer = UploadAvatarSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        result=upload_avatar_service(user, serializer.validated_data)
-        return Response(self.format_response(result, "Avatar uploaded successfully"))
-    
-
